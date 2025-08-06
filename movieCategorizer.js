@@ -1,118 +1,109 @@
 //doing a filter for a movie app; when you pass in a parameter like genre
-//it returns all that genre
-
-
+//it returns all the movie in that  genre
 let movieList = [
     { tittle: "Thunderbolt",
-      genre: "Action",
-      rating:7,
+      genre: "action",
+      rating:9,
       year: "2025"
     },
     { tittle: "Kingdom of the planet of apes",
-        genre: "Thriller",
+        genre: "thriller",
         rating:6,
         year: "2024"
     },
     { tittle: "Absolutely anything",
-        genre: "Comedy",
+        genre: "comedy",
         rating:8.5,
         year: "2015"
     },
-    { tittle: "TOver the moon",
-        genre: "Romance",
+    { tittle: "Over the moon",
+        genre: "romance",
         rating:7,
         year: "2020"
     },
     { tittle: "Mastermind",
-        genre: "Action",
-        rating:5,
+        genre: "action",
+        rating:7,
         year: "2016"
     },
     { tittle: "God of war",
-        genre: "Action",
+        genre: "action",
         rating:9,
         year: "2017"
     },
     { tittle: "Inception",
-        genre: "Sci-fi",
+        genre: "sci-fi",
         rating:7,
         year: "2018"
     },
     { tittle: "The hit man",
-        genre: "Rom-com",
+        genre: "rom-com",
         rating:9.5,
         year: "2021"
     },
     { tittle: "King of kings",
-        genre: "Animation",
+        genre: "animation",
         rating:10,
         year: "2025"
     },
     { tittle: "Ballerina",
-        genre: "Action",
+        genre: "action",
         rating:6,
         year: "2025"
     },
     { tittle: "The matrix",
-        genre: "Action",
+        genre: "action",
         rating:9,
         year: "2002"
     },
     { tittle: "The iron man",
-        genre: "Action",
+        genre: "action",
         rating:10,
         year: "2004"
     },
     { tittle: "Nimona",
-        genre: "Animation",
+        genre: "animation",
         rating:8,
         year: "2023"
     },
     { tittle: "Straw",
-        genre: "Tradegy",
+        genre: "tragedy",
         rating:9,
         year: "2025"
     },
     { tittle: "Iron heart",
-        genre: "Action",
+        genre: "action",
         rating:2,
         year: "2025"
     }
 ]
 
-//SEARCH FUNCTION --> allows you to search movies
-function searchMovie(nameOfMovie){
-
-}
-
 //FILTER FUNCTION -->  get movie based on rating and/or genre
-function getMovieBasedOnFilter(...filters) {
+function getMovieBasedOnFilter(filters) {
+    //[Tragedy,9,2025]
     let pickedMovie = [];
-    //the first for of loop picks the elements of the filter array
-    let i = 0;
-    for (let filter of filters) {
-        //the second for of loop picks the elements(which is an object ) from the movieList array
-        //it allows you iterate over the movieList array
-        while (i<movieList.length) {
-            let movie = movieList[i];
-            //the for in loop below allows you iterate over the property in the movie object
-            for (let movieListKey in movie) {
-                if (filter === movie[movieListKey]) {
-                    pickedMovie.push(movie);
-                    break;
+    let i =0;
+    let keysOfFilter = Object.keys(filters);
+    let  lastKeysOfFilter=keysOfFilter.at(-1)
+    while(i<movieList.length) {
+        for (let element in filters) {
+            if (filters[element] !== movieList[i][element]) {
+                break;
+            } else {
+                if(!pickedMovie.includes(movieList[i])&&element===lastKeysOfFilter ) {
+                    pickedMovie.push(movieList[i]);
                 }
-
             }
-            i++;
-
-            if(i===movieList.length){
-                movieList=pickedMovie;
-                pickedMovie=[];
-            }
-
         }
+        i++
     }
     return pickedMovie;
 }
+let filterOption ={
+    genre : 'action',
+   // rating :9,
+   //year :'2025'
+}
+
 //.join removes the braces from the array(pickedMovie) and put the passed argument ","
-console.log(getMovieBasedOnFilter(9,"Tragedy"));
+console.log(getMovieBasedOnFilter(filterOption));
